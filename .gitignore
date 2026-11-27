@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+output/
+*.wav
+*.mp3
+*.flac
+.pytest_cache/
