@@ -3,6 +3,10 @@ name = "tune-to-tab"
 version = "0.1.0"
 description = "Separate the instruments of an audio track and generate guitar and bass tabs"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Marcello De Giorgi" }]
+keywords = ["guitar", "bass", "tablature", "music-transcription", "source-separation", "guitar-pro"]
 requires-python = ">=3.10,<3.12"
 dependencies = [
     "demucs>=4.0.1",
@@ -13,6 +17,9 @@ dependencies = [
     "fpdf2>=2.7",
     "pyguitarpro>=0.9",
 ]
+
+[project.urls]
+Repository = "https://github.com/DeGiorgiMarcello/tune_to_tab"
 
 [project.scripts]
 tune-to-tab = "tune_to_tab.cli:main"

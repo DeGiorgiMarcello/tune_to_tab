@@ -1,5 +1,7 @@
 # tune-to-tab
 
+[![tests](https://github.com/DeGiorgiMarcello/tune_to_tab/actions/workflows/tests.yml/badge.svg)](https://github.com/DeGiorgiMarcello/tune_to_tab/actions/workflows/tests.yml)
+
 Takes an audio track, separates the instruments and generates **guitar** and **bass** tabs in separate files, as plain text, PDF and Guitar Pro.
 
 ## How it works
@@ -93,3 +95,21 @@ uv run pytest
 ```
 
 The tests cover fingering, rendering, PDF and Guitar Pro export, which do not depend on the audio models.
+
+## Credits
+
+This project builds on:
+
+- [Demucs](https://github.com/facebookresearch/demucs) (MIT) for source separation
+- [basic-pitch](https://github.com/spotify/basic-pitch) (Apache-2.0) for note transcription
+- [librosa](https://github.com/librosa/librosa) (ISC) for tempo estimation
+- [PyGuitarPro](https://github.com/Perlence/PyGuitarPro) (LGPL-3.0) for Guitar Pro export
+- [fpdf2](https://github.com/py-pdf/fpdf2) (LGPL-3.0) for PDF export
+
+## Disclaimer
+
+tune-to-tab is a tool for study and personal practice. Transcribing copyrighted songs, and sharing the resulting tabs, may be restricted where you live: making sure you have the right to do so is your responsibility.
+
+## License
+
+[MIT](LICENSE)
