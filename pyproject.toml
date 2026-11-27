@@ -11,6 +11,7 @@ dependencies = [
     "librosa>=0.10",
     "numpy<2",
     "fpdf2>=2.7",
+    "pyguitarpro>=0.9",
 ]
 
 [project.scripts]

@@ -180,6 +180,21 @@ def _string_label(open_pitch: int) -> str:
     return NOTE_NAMES[open_pitch % 12]
 
 
+Grid = dict[int, dict[int, int]]  # slot -> {string_index: fret}
+
+
+def quantize(events: list[TabEvent], bpm: float, subdivisions_per_beat: int = 4) -> Grid:
+    """Snap events onto a rhythmic grid of `subdivisions_per_beat` slots per beat."""
+    step = 60.0 / bpm / subdivisions_per_beat
+    grid: Grid = {}
+    for ev in events:
+        slot = int(round(ev.time / step))
+        cell = grid.setdefault(slot, {})
+        for s, f in ev.positions:
+            cell.setdefault(s, f)  # if two events land in the same slot, the first one wins
+    return grid
+
+
 def render_tab(
     events: list[TabEvent],
     inst: Instrument,
@@ -190,16 +205,9 @@ def render_tab(
     title: str | None = None,
 ) -> str:
     """Render the events as ASCII tab on a quantised rhythmic grid."""
-    step = 60.0 / bpm / subdivisions_per_beat
     slots_per_bar = subdivisions_per_beat * beats_per_bar
     n_strings = len(inst.tuning)
-
-    grid: dict[int, dict[int, int]] = {}
-    for ev in events:
-        slot = int(round(ev.time / step))
-        cell = grid.setdefault(slot, {})
-        for s, f in ev.positions:
-            cell.setdefault(s, f)  # if two events land in the same slot, the first one wins
+    grid = quantize(events, bpm, subdivisions_per_beat)
 
     last_slot = max(grid) if grid else 0
     n_bars = last_slot // slots_per_bar + 1

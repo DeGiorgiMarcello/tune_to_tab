@@ -9,7 +9,7 @@ from pathlib import Path
 from .tab import BASS, GUITAR, Instrument, assign_positions, render_tab
 
 INSTRUMENTS: dict[str, Instrument] = {"guitar": GUITAR, "bass": BASS}
-FORMATS = ("txt", "pdf")
+FORMATS = ("txt", "pdf", "gp")
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -22,10 +22,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     p.add_argument(
         "-f", "--formats", nargs="+", choices=FORMATS, default=list(FORMATS),
-        help="tab output formats (default: txt pdf)",
+        help="tab output formats: txt, pdf, gp (Guitar Pro 5) (default: all)",
     )
     p.add_argument("--bpm", type=float, help="force the BPM instead of estimating it")
-    p.add_argument("--subdivisions", type=int, default=4, help="columns per beat (4 = sixteenth notes)")
+    p.add_argument("--subdivisions", type=int, default=4, help="columns per beat (4 = sixteenth notes; must be a power of two for gp)")
     p.add_argument("--bars-per-line", type=int, default=4)
     p.add_argument("--device", help="cpu or cuda (default: automatic)")
     p.add_argument("--skip-separation", action="store_true", help="reuse stems already in the output directory")
@@ -34,6 +34,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None) -> None:
     args = parse_args(argv)
+    from .gp import tab_to_gp
     from .pdf import tab_to_pdf
     from .separate import separate
     from .transcribe import estimate_tempo, transcribe
@@ -76,6 +77,13 @@ def main(argv: list[str] | None = None) -> None:
             written.append(txt_path)
         if "pdf" in args.formats:
             written.append(tab_to_pdf(text, song_dir / f"{name}_tab.pdf"))
+        if "gp" in args.formats:
+            written.append(
+                tab_to_gp(
+                    events, inst, bpm=bpm, path=song_dir / f"{name}_tab.gp5",
+                    subdivisions_per_beat=args.subdivisions, title=f"{args.audio.stem} - {name}",
+                )
+            )
         print(f"      {len(notes)} notes, {len(events)} events -> {', '.join(map(str, written))}")
 
 

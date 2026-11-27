@@ -1678,6 +1678,18 @@ wheels = [
 ]
 
 [[package]]
+name = "pyguitarpro"
+version = "0.11"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "attrs" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/0f/79/24754b4088a0647dc6dbc641534991fc5cb25acb8bdd65654bef42c3da81/pyguitarpro-0.11.tar.gz", hash = "sha256:d8692f9510a80a7c22b43b1c40fcd5ff32ae861241ef95a51cc607c3610f9f01", size = 105427, upload-time = "2026-05-03T12:19:59.018Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/62/5e/58c0b0a61636316a77c1a5106a0a82198bba15f415cc8205fa334d561da9/pyguitarpro-0.11-py3-none-any.whl", hash = "sha256:747d01b580b147a0b726a8f7fafa9e5b0947030c886622831580ef1b6fa99a94", size = 45636, upload-time = "2026-05-03T12:19:57.519Z" },
+]
+
+[[package]]
 name = "pyreadline3"
 version = "3.5.6"
 source = { registry = "https://pypi.org/simple" }
@@ -2317,6 +2329,7 @@ dependencies = [
     { name = "fpdf2", version = "2.9.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "librosa" },
     { name = "numpy" },
+    { name = "pyguitarpro" },
     { name = "soundfile" },
 ]
 
@@ -2332,6 +2345,7 @@ requires-dist = [
     { name = "fpdf2", specifier = ">=2.7" },
     { name = "librosa", specifier = ">=0.10" },
     { name = "numpy", specifier = "<2" },
+    { name = "pyguitarpro", specifier = ">=0.9" },
     { name = "soundfile", specifier = ">=0.12" },
 ]
 
